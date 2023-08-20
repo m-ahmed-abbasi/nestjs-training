@@ -19,7 +19,7 @@ export class User {
     email: string;
 
     @Column()
-    passowrd: string;
+    password: string;
 
     @OneToMany(type => Task, task => task.user)
     tasks: Task[]
