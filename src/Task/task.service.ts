@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 import { Repository } from 'typeorm';
@@ -31,6 +31,8 @@ export class TaskService {
             this.userRepository.save(user);
             return this.taskRepository.save(task);
         }
+
+        throw new BadRequestException();
     }
 
     async update(task: Partial<Task>, userId: string) {
@@ -43,10 +45,16 @@ export class TaskService {
 
             this.taskRepository.save(original);
         }
+
+        throw new BadRequestException();
     }
 
     async delete(taskId: string, userId: string) {
         const task = await this.taskRepository.findOne({ where: { id: taskId, user: { id: userId } } });
-        this.taskRepository.delete(task);
+        if (task) {
+            return this.taskRepository.delete(task);
+        }
+
+        throw new BadRequestException();
     }
 }
