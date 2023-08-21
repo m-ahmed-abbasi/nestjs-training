@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { Task } from './task/task.entity';
-
+import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     // Typeorm module
@@ -26,6 +26,13 @@ import { Task } from './task/task.entity';
         synchronize: true,
       }
     ),
+    JwtModule.register({
+      secret: 'MyJWTSecret',
+      signOptions: {
+        expiresIn: '1d',
+      },
+      global: true,
+    }),
     TaskModule,
     UserModule,
     AuthModule
