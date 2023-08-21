@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards, UseFilters } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
+import { ExceptionsFilter } from 'src/filters/ExceptionsFilter';
 
 @Controller('task')
 @UseGuards(AuthGuard)
+@UseFilters(ExceptionsFilter)
 export class TaskController {
 
     constructor(

@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, UseFilters } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
+import { ExceptionsFilter } from 'src/filters/ExceptionsFilter';
 
 @Controller('user')
+@UseFilters(ExceptionsFilter)
 export class UserController {
-
+    
     constructor(readonly userService: UserService) { }
-
+    
     @Get(':userId')
     details(@Param('userId') userId: string) {
         return this.userService.find(userId);
