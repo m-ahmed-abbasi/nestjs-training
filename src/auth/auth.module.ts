@@ -4,7 +4,6 @@ import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/user.entity';
 import { Task } from 'src/task/task.entity';
-import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
